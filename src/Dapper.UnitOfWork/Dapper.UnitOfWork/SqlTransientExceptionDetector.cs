@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.Linq;
+using Microsoft.Data.Sqlite;
 
 namespace Dapper.UnitOfWork
 {
@@ -34,11 +34,11 @@ namespace Dapper.UnitOfWork
 
 		public bool ShouldRetryOn(Exception ex)
 		{
-			if (!(ex is SqlException sqlException))
+			if (!(ex is SqliteException sqlException))
 				return ex is TimeoutException;
 
-			foreach (SqlError err in sqlException.Errors)
-				return HandledErrorNumbers.Contains(err.Number);
+			//foreach (err in sqlException.Errors)
+			//	return HandledErrorNumbers.Contains(err.Number);
 
 			return false;
 		}

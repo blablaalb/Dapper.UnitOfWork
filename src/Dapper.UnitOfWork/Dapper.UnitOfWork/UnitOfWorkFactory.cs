@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,7 +21,7 @@ namespace Dapper.UnitOfWork
         public UnitOfWorkFactory(string connectionString, DbProviderFactory dbProviderFactory = null)
         {
             _connectionString = connectionString;
-            _dbProviderFactory = dbProviderFactory ?? SqlClientFactory.Instance;
+            _dbProviderFactory = dbProviderFactory ?? SqliteFactory.Instance;
         }
 
         public IUnitOfWork Create(bool transactional = false, IsolationLevel isolationLevel = IsolationLevel.ReadCommitted, RetryOptions retryOptions = null)
