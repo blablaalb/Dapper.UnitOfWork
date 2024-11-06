@@ -1,5 +1,5 @@
-﻿using System;
-using System.Data.SqlClient;
+using System;
+using Npgsql;
 using System.Linq;
 
 namespace Dapper.UnitOfWork
@@ -34,11 +34,11 @@ namespace Dapper.UnitOfWork
 
 		public bool ShouldRetryOn(Exception ex)
 		{
-			if (!(ex is SqlException sqlException))
+            if (!(ex is PostgresException sqlException))
 				return ex is TimeoutException;
 
-			foreach (SqlError err in sqlException.Errors)
-				return HandledErrorNumbers.Contains(err.Number);
+
+				//return HandledErrorNumbers.Contains(err.SqlState);
 
 			return false;
 		}
